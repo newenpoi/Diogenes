@@ -2,7 +2,7 @@
 
 /*
     TODO:
-    Revoir la partie Singleton.
+    Révision de la partie Singleton.
 */
 
 template <class T>
