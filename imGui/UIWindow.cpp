@@ -12,9 +12,8 @@ LRESULT CALLBACK MainWindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM l
     return uiWindow->WindowProc(hWnd, message, wParam, lParam);
 }
 
-UIWindow::UIWindow() : _x(0), _y(0), _width(0), _height(0), _hInstance(0), _hWnd(0), _showDemoWindow(false), _showMainWindow(true), _clearColor({})
+UIWindow::UIWindow() : _x(0), _y(0), _width(0), _height(0), _hInstance(0), _hWnd(0), _showDemoWindow(false), _showMainWindow(true)
 {
-    _clearColor = ImVec4(0.45f, 0.55f, 0.60f, 1.0f);
     uiWindow = this;
 }
 
@@ -43,7 +42,7 @@ BOOL UIWindow::Init(UINT x, UINT y, UINT width, UINT height)
 {
     WNDCLASSEX wc; // Détiens les informations de la fenêtre (window class).
 
-    // Clear out the window class for use.
+    // Nettoie le bloc de mémoire correspondant à la classe.
     ZeroMemory(&wc, sizeof(WNDCLASSEX));
 
     wc.cbSize = sizeof(WNDCLASSEX);
@@ -96,9 +95,9 @@ BOOL UIWindow::InitImGui()
     ImGui::CreateContext();
 
     ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;       // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Active la gestion du clavier.
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Active la gestion d'ancrage des fenêtres.
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Active les fenêtres multi-vues / plate-formes.
 
     // Définition du style d'imgui.
     ImGui::StyleColorsDark();
@@ -118,18 +117,22 @@ BOOL UIWindow::InitImGui()
     // Charge le/les fonts.
     SetFontList();
 
-    // Charge les textures.
+    // Charge la texture (pour la fenêtre Monica).
     _imageWidth = 0;
     _imageHeight = 0;
     _texture = NULL;
     bool ret = DIRECTX9.LoadTextureFromFile("texture/monika.jpg", &_texture, &_imageWidth, &_imageHeight);
-    IM_ASSERT(ret != NULL && "Error loading texture.");
+    IM_ASSERT(ret != NULL && "Erreur lors de la lecture de la texture.");
 
     return true;
 }
 
 BOOL UIWindow::SetFontList()
 {
+    /*
+        Initialise une police compatible avec les caractères exotiques.
+    */
+
     ImGuiIO& io = ImGui::GetIO();
     ImFontConfig config;
 
@@ -206,7 +209,7 @@ VOID UIWindow::DrawScene()
     DIRECTX9.GetDeviceContext()->SetRenderState(D3DRS_SCISSORTESTENABLE, FALSE);
 
     ImGuiIO& io = ImGui::GetIO();
-    D3DCOLOR clear_col_dx = D3DCOLOR_RGBA((int)(_clearColor.x * _clearColor.w * 0.0f), (int)(_clearColor.y * _clearColor.w * 0.0f), (int)(_clearColor.z * _clearColor.w * 0.0f), (int)(_clearColor.w * 0.0f));
+    D3DCOLOR clear_col_dx = Color::Black();
 
     // Nettoie le buffer.
     DIRECTX9.GetDeviceContext()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, clear_col_dx, 1.0f, 0);
@@ -218,7 +221,7 @@ VOID UIWindow::DrawScene()
         DIRECTX9.GetDeviceContext()->EndScene();
     }
 
-    // Update and Render additional Platform Windows
+    // Mets à jour et affiche les fenêtres supplémentaires.
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
         ImGui::UpdatePlatformWindows();
