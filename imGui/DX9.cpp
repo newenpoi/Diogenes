@@ -42,7 +42,10 @@ VOID DX9::CleanD3D(void)
 
 BOOL DX9::LoadTextureFromFile(const char* filename, PDIRECT3DTEXTURE9* output, int* outputWidth, int* outputHeight)
 {
-    // Charge la texture depuis le disque.
+    /*
+        Charge la texture depuis le disque, renvoie vrai si la texture a pu être chargée, faux autrement.
+    */
+    
     PDIRECT3DTEXTURE9 texture;
     HRESULT hr = D3DXCreateTextureFromFileA(_d3ddev, filename, &texture);
 

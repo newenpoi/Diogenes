@@ -166,6 +166,7 @@
     <ClInclude Include="..\imFinal\imGui\imstb_rectpack.h" />
     <ClInclude Include="..\imFinal\imGui\imstb_textedit.h" />
     <ClInclude Include="..\imFinal\imGui\imstb_truetype.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="DX9.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="UIWindow.h" />

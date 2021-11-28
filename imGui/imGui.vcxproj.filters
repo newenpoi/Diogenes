@@ -92,5 +92,8 @@
     <ClInclude Include="..\imFinal\imGui\backends\imgui_impl_win32.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="Color.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

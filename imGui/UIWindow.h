@@ -9,6 +9,7 @@
 #include <string>
 
 #include "DX9.h"
+#include "Color.h"
 #include "imgui\imgui.h"
 #include "imgui\backends\imgui_impl_win32.h"
 #include "imgui\backends\imgui_impl_dx9.h"
@@ -37,7 +38,6 @@ private:
 
 	bool _showDemoWindow;
 	bool _showMainWindow;
-	ImVec4 _clearColor;
 
 	PDIRECT3DTEXTURE9 _texture;
 	int _imageWidth;

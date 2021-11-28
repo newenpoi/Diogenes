@@ -2,7 +2,10 @@
 
 /*
     TODO:
-    Révision de la partie Singleton.
+    Revoir Template.
+    Réaliser un singleton thread-safe.
+    
+    Attention ce singleton n'est pas thread-safe.
 */
 
 template <class T>
@@ -10,7 +13,7 @@ template <class T>
 class Singleton
 {
     protected:
-    Singleton() {}
+    Singleton() {} // Empêche l'instanciation en dehors de la classe.
     virtual ~Singleton() {}
 
     public:
